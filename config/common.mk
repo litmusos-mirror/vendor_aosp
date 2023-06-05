@@ -199,6 +199,7 @@ TARGET_INCLUDE_STOCK_ARCORE ?= true
 TARGET_INCLUDE_LIVE_WALLPAPERS ?= true
 TARGET_SUPPORTS_QUICK_TAP ?= false
 TARGET_SUPPORTS_CALL_RECORDING ?= true
+TARGET_32BIT_GAPPS ?= false #Flag for enabling 32 BIT GAPPS
 
 # Face Unlock
 TARGET_FACE_UNLOCK_SUPPORTED ?= true
@@ -229,7 +230,11 @@ $(call inherit-product, vendor/aosp/config/bootanimation.mk)
 $(call inherit-product, vendor/aosp/config/fonts.mk)
 
 # GMS
+ifeq ($(TARGET_32BIT_GAPPS), true)
+$(call inherit-product, vendor/gapps/common/common-vendor.mk) #32 BIT GAPPS MAKEFILE
+else
 $(call inherit-product, vendor/gms/products/gms.mk)
+endif
 
 # OTA
 $(call inherit-product, vendor/aosp/config/ota.mk)
